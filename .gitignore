@@ -1,0 +1,23 @@
+# OS
+.DS_Store
+*.log
+
+# Python
+__pycache__/
+*.py[cod]
+venv/
+.venv/
+env/
+ENV/
+.env
+.env.local
+
+# Node
+node_modules/
+dist/
+dist-ssr/
+*.local
+
+# 本地环境文件（仅含 localhost 默认值，按惯例不提交）
+.env.*
+!.env.example
