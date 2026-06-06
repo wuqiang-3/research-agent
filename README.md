@@ -1,8 +1,8 @@
 # 自动化深度研究智能体
 
-## 14.1 项目概述与架构设计
+## 1 项目概述与架构设计
 
-### 14.1.1 为什么需要深度研究助手
+### 1.1 为什么需要深度研究助手
 
 在信息爆炸的时代，我们每天都需要快速了解新的技术、概念或事件。传统的研究方式有几个痛点。首先是<strong>信息过载</strong>。搜索引擎返回成千上万的结果，你需要逐个点开链接，阅读大量内容，才能找到有用的信息。其次是<strong>缺少结构</strong>。即使找到了相关信息，这些信息往往是碎片化的，缺少系统性的组织。最后是<strong>重复劳动</strong>。每次研究新主题时，都需要重复"搜索→阅读→总结→整理"的过程。
 
@@ -15,7 +15,7 @@
 3. <strong>可追溯</strong>：记录所有搜索结果和来源，方便验证和引用
 4. <strong>可扩展</strong>：可以轻松添加新的搜索引擎、数据源和分析工具
 
-### 14.1.2 技术架构概览
+### 1.2 技术架构概览
 
 此次系统仍然采用经典的<strong>前后端分离架构</strong>，如图 14.1 所示。
 
@@ -84,7 +84,7 @@ helloagents-deepresearch/
     └── vite.config.ts         # 构建配置
 ```
 
-### 14.1.3 快速体验：5 分钟运行项目
+### 1.3 快速体验：5 分钟运行项目
 
 在深入学习实现细节之前，让我们先把项目跑起来，看看最终的效果。这样你会对整个系统有一个直观的认识。
 
@@ -181,9 +181,9 @@ npm run dev
 
 现在你已经成功运行了深度研究助手，对系统有了直观的认识。
 
-## 14.2 TODO 驱动的研究范式
+## 2 TODO 驱动的研究范式
 
-### 14.2.1 什么是 TODO 驱动的研究
+### 2.1 什么是 TODO 驱动的研究
 
 传统的搜索引擎只能回答单个问题，而深度研究需要回答一系列相关的问题。TODO 驱动的研究范式将复杂的研究主题分解为多个子任务（TODO），逐个执行并整合结果。
 
@@ -246,7 +246,7 @@ npm run dev
 
 整个流程是线性的，但每个阶段都有明确的输入和输出。这种设计使得系统易于理解和调试。
 
-### 14.2.2 三阶段研究流程
+### 2.2 三阶段研究流程
 
 TODO 驱动的研究流程分为三个阶段:规划（Planning）、执行（Execution）、报告（Reporting）。每个阶段都有专门的 Agent 负责。
 
@@ -416,9 +416,9 @@ Datawhale发布了多个高质量的开源教程，包括Hello-Agents、Joyful-P
 
 报告生成 Agent 会按照子任务的逻辑顺序组织内容，在开头添加简要概述，合并重复的信息，统一 Markdown 格式，并将所有来源引用整理到参考文献部分。
 
-## 14.3 智能体系统设计
+## 3 智能体系统设计
 
-### 14.3.1 Agent 职责划分
+### 3.1 Agent 职责划分
 
 在深度研究助手中，我们设计了三个专门的 Agent，每个 Agent 负责一个特定的任务。这使得每个 Agent 都很简单，易于理解和维护。
 
@@ -725,7 +725,7 @@ class ReportingService:
         return "\n".join(formatted)
 ```
 
-### 14.3.2 ToolAwareSimpleAgent 的设计
+### 3.2 ToolAwareSimpleAgent 的设计
 
 在第七章中，我们实现了`SimpleAgent`，它是 HelloAgents 框架的基础 Agent。但在深度研究助手中，我们需要一个能够<strong>记录工具调用</strong>的 Agent。这就是`ToolAwareSimpleAgent`的由来。
 
@@ -879,11 +879,11 @@ class DeepResearchAgent:
 
 
 
-## 14.4 工具系统集成
+## 4 工具系统集成
 
-### 14.4.1 SearchTool 扩展
+### 4.1 SearchTool 扩展
 
-在第七章中，我们实现了`SearchTool`的基础版本，集成了 Tavily 和 SerpApi 两个搜索引擎，展示了多源搜索的设计思想。在本章的深度研究助手中，我们进一步扩展了`SearchTool`的能力，新增了 DuckDuckGo、Perplexity、SearXNG 等搜索引擎，并实现了 Advanced 模式（组合多个搜索引擎）。搜索是深度研究助手最核心的功能，这些扩展使得系统能够适应不同的使用场景和需求。
+进一步扩展了`SearchTool`的能力，新增了 DuckDuckGo、Perplexity、SearXNG 等搜索引擎，并实现了 Advanced 模式（组合多个搜索引擎）。搜索是深度研究助手最核心的功能，这些扩展使得系统能够适应不同的使用场景和需求。
 
 如表 14.2 所示，这次增加的搜索引擎有不同的特点和适用场景。
 
@@ -961,7 +961,7 @@ def limit_source_tokens(source: dict, max_tokens: int = 2000) -> dict:
     }
 ```
 
-### 14.4.2 NoteTool 使用
+### 4.2 NoteTool 使用
 
 在深度研究助手中，我们使用`NoteTool`来持久化研究进度。`NoteTool`是第九章集成的内置工具，用于创建、读取、更新和删除笔记。
 
@@ -1034,7 +1034,7 @@ class NotesService:
         return content
 ```
 
-### 14.4.3 ToolRegistry 工具管理
+### 4.3 ToolRegistry 工具管理
 
 `ToolRegistry`是 HelloAgents 框架的工具注册表，同样也是在我们的第七章所支持，用于管理所有工具的注册和调用。在深度研究助手中，我们使用`ToolRegistry`来管理`SearchTool`和`NoteTool`。
 
@@ -1082,11 +1082,11 @@ agent = ToolAwareSimpleAgent(
 5. </strong>返回结果<strong>：工具返回执行结果
 6. </strong>格式化结果<strong>：将结果格式化为字符串，返回给 Agent
 
-## 14.5 服务层实现
+## 5 服务层实现
 
 本节将详细介绍核心服务的实现，包括 PlanningService、SummarizationService、ReportingService 和 SearchService。这些服务是连接 Agent 和工具的桥梁，负责具体的业务逻辑。
 
-### 14.5.1 任务规划服务
+### 5.1 任务规划服务
 
 `PlanningService`负责调用研究规划 Agent，将研究主题分解为子任务。这是整个研究流程的第一步，也是最关键的一步。
 
@@ -1295,7 +1295,7 @@ def evaluate_plan(self, todo_items: List[TodoItem]) -> dict:
     }
 ```
 
-### 14.5.2 总结服务
+### 5.2 总结服务
 
 `SummarizationService`负责调用任务总结 Agent，总结搜索结果。这是研究流程的核心环节，决定了研究的质量。
 
@@ -1391,7 +1391,7 @@ class SummarizationService:
 ...
 ```
 
-### 14.5.3 报告生成服务
+### 5.3 报告生成服务
 
 `ReportingService`负责调用报告生成 Agent，整合所有子任务的总结。这是研究流程的最后一步，生成最终的研究报告。
 
@@ -1487,7 +1487,7 @@ class ReportingService:
         return "".join(formatted)
 ```
 
-### 14.5.4 搜索调度服务
+### 5.4 搜索调度服务
 
 `SearchService`负责调度搜索引擎，执行搜索并返回结果。这是连接 Agent 和 SearchTool 的桥梁。在这里我们没有采用往常一样的使得 simpleAgent 直接调用工具的形式，而是将 SearchTool 的执行结果通过中间层来返回给 Agent，这样会使得 Agent 更加专注处理得到的信息。
 
@@ -1661,11 +1661,11 @@ class SearchService:
 
 通过四个核心服务（PlanningService、SummarizationService、ReportingService、SearchService），我们构建了一个完整的研究流程。这些服务各司其职，通过清晰的接口协作，实现了从研究主题到最终报告的自动化流程。
 
-## 14.6 前端交互设计
+## 6 前端交互设计
 
 在前面的章节中，我们实现了完整的后端系统。本节将详细介绍前端交互设计，包括全屏模态对话框 UI、实时进度展示和研究结果可视化。
 
-### 14.6.1 全屏模态对话框 UI 设计
+### 6.1 全屏模态对话框 UI 设计
 
 深度研究助手采用全屏模态对话框的 UI 设计，这种设计有以下优势：
 
@@ -1828,7 +1828,7 @@ watch(() => props.isOpen, (isOpen) => {
 }
 ```
 
-### 14.6.2 实时进度展示
+### 6.2 实时进度展示
 
 深度研究助手使用 SSE 实现实时进度展示。SSE 是一种服务器推送技术，允许服务器主动向客户端发送数据，在协议章节也有所讲解。
 
@@ -2022,7 +2022,7 @@ const handleStartResearch = (topic: string) => {
 </script>
 ```
 
-### 14.6.3 研究结果可视化
+### 6.3 研究结果可视化
 
 研究结果以 Markdown 格式展示，包含标题、段落、列表、引用等元素。我们使用`marked`库将 Markdown 转换为 HTML，并添加自定义样式。
 
@@ -2057,7 +2057,7 @@ const renderedHtml = marked(markdownContent.value)
 
 通过全屏模态对话框 UI、SSE 实时进度展示和 Markdown 结果可视化，我们构建了一个用户友好的前端界面。用户可以清晰地看到研究进度，并以美观的格式查看研究结果。
 
-## 14.7 本章小结
+## 7 本章小结
 
 在本章中，我们从零开始构建了一个完整的自动化深度研究智能体系统。让我们回顾一下核心要点：
 
